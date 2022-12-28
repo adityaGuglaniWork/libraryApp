@@ -6,6 +6,7 @@ import { REGEX_VALID_EMAIL, REGEX_VALUE_URL, REGEX_DIGIT_ONLY } from '@app/const
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint'
 import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
+import Header from '@app/components/Header';
 
 export default function AddBookForm() {
     const [bookName, setBookName] = useState();
@@ -18,7 +19,7 @@ export default function AddBookForm() {
 
     const [errorFields, setErrorFields] = useState({});
 
-    function submitBookToBE() {
+    function submitBook() {
         return fetch(ACCESS_BOOK, {
             method: 'POST',
             body: JSON.stringify({
@@ -47,7 +48,7 @@ export default function AddBookForm() {
 
     function onSubmit() {
         if (validateFields()) {
-            submitBookToBE();
+            submitBook();
         }
     }
 
@@ -99,9 +100,7 @@ export default function AddBookForm() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.heading}>LIBRARY FORM</Text>
-            </View>
+            <Header>LIBRARY FORM</Header>
             <ScrollView style={styles.fieldsContainer}>
                 <Text style={styles.inputLabel}>Book Name<RedText>*</RedText></Text>
                 <TextInput value={bookName} onChange={(e) => setBookName(e.nativeEvent.text)} placeholder="Book Name" style={styles.bookFormInput} />
@@ -161,18 +160,6 @@ const styles = StyleSheet.create({
     splitContainer: {
         flexDirection: "column",
         flex: 1
-    },
-    header: {
-        height: 100,
-        backgroundColor: "#5db3ff",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40
-    },
-    heading: {
-        fontSize: 30,
-        color: "#800080",
-        fontWeight: "bold"
     },
     red: {
         color: "red"

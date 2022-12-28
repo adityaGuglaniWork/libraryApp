@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FlatList, Text, StyleSheet, View } from 'react-native';
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint';
+import Header from '@app/components/Header';
 
 export default function Books() {
     const [books, setBooks] = useState();
@@ -21,7 +22,6 @@ export default function Books() {
                 setBooks(displayBooks);
             })
             .catch(error => {
-                console.log(error);
                 alert("Error getting the books");
             });
     };
@@ -57,16 +57,17 @@ export default function Books() {
     }
 
     return (
-        <View style={styles.root}>
-            <Text style={styles.header}>Books In Library</Text>
+        <>
+            <Header>BOOKS IN LIBRARY</Header>
             {
                 <FlatList
                     ItemSeparatorComponent={<View style={styles.separator} />}
                     data={books}
                     renderItem={viewHolder}
+                    style={styles.marginTop10}
                     keyExtractor={(book) => book.id} />
             }
-        </View>
+        </>
     );
 }
 
@@ -81,14 +82,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         backgroundColor: "#e1e1e1"
     },
-    header: {
-        fontSize: 30,
-        fontWeight: "bold",
-        alignSelf: "center"
-    },
-    root: {
-        marginTop: 60
-    },
     label: {
         fontWeight: "bold",
     },
@@ -97,5 +90,8 @@ const styles = StyleSheet.create({
     },
     field: {
         margin: 4
+    },
+    marginTop10: {
+        marginTop: 10
     }
 });
