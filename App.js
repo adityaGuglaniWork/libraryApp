@@ -8,9 +8,15 @@
 
 import React from 'react';
 import AddBookForm from '@app/components/AddBookForm';
+import Books from '@app/components/Books';
 
 export default function App() {
-  return <AddBookForm style={{flex: 1}} />
+  return (
+    <>
+      <Books />
+      {/* <AddBookForm /> */}
+    </>
+  )
 }
 
 if (__DEV__) {

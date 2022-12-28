@@ -1,1 +1,1 @@
-export const ADD_BOOK = 'https://virtserver.swaggerhub.com/aditya.guglani/dummy/1.0.0/book';
+export const ACCESS_BOOK = 'https://virtserver.swaggerhub.com/aditya.guglani/books/1.0.0/book';

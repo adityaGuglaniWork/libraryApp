@@ -3,7 +3,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
 import { SelectList } from 'react-native-dropdown-select-list'
 import { REGEX_VALID_EMAIL, REGEX_VALUE_URL, REGEX_DIGIT_ONLY } from '@app/constants/Regex'
-import { ADD_BOOK } from '@app/constants/ApiEndpoint'
+import { ACCESS_BOOK } from '@app/constants/ApiEndpoint'
 import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
 
@@ -19,7 +19,7 @@ export default function AddBookForm() {
     const [errorFields, setErrorFields] = useState({});
 
     function submitBookToBE() {
-        return fetch(ADD_BOOK, {
+        return fetch(ACCESS_BOOK, {
             method: 'POST',
             body: JSON.stringify({
                 "bookName": bookName,
