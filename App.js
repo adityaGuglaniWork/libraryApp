@@ -10,13 +10,11 @@ import React from 'react';
 import AddBookForm from '@app/components/AddBookForm';
 import Books from '@app/components/Books';
 import { ScrollView } from 'react-native';
+import RootNavigator from '@app/navigation/RootNavigator';
 
 export default function App() {
   return (
-    <ScrollView>
-      <AddBookForm />
-      <Books />
-    </ScrollView>
+    <RootNavigator/>
   )
 }
 
