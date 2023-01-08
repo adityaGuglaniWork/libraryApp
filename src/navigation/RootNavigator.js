@@ -17,8 +17,8 @@ const RootNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash" screenOptions={headerOptions} >
           <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
-          <Stack.Screen name="BOOKS" component={Books} options={{title: 'BOOKS IN LIBRARY'}} />
-          <Stack.Screen name="ADD BOOK" component={AddBookForm} />
+          <Stack.Screen name="BOOKS" component={Books} options={{title: 'ALL BOOKS'}} />
+          <Stack.Screen name="ADD BOOK" component={AddBookForm} options={{title: 'CREATE A NEW BOOK'}}  />
           <Stack.Screen name="BOOK" component={Book} options={{title: 'DETAIL'}} />
         </Stack.Navigator>
       </NavigationContainer>
