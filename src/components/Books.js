@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { FlatList, Text, StyleSheet, View } from 'react-native';
+import { FlatList, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint';
-import Header from '@app/components/Header';
+import Loader from '@app/components/Loader';
 
-export default function Books() {
-    const [books, setBooks] = useState();
+export default function Books({ navigation }) {
+    const [books, setBooks] = useState([]);
     
     useEffect(() => {
         getBooks();
@@ -28,39 +28,26 @@ export default function Books() {
 
     function viewHolder({ item }) {
         return (
-            <View style={styles.container}>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Book Name:</Text>
-                    <Text style={styles.value}>{item.bookName}</Text>
-                </Text>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Author:</Text>
-                    <Text style={styles.value}>{item.authorName}</Text>
-                </Text>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Price:</Text>
-                    <Text style={styles.value}>${item.price}</Text>
-                </Text>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Publishers:</Text>
-                    <Text style={styles.value}>{item.publisher}</Text>
-                </Text>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Website:</Text>
-                    <Text style={styles.value}>{item.website}</Text>
-                </Text>
-                <Text style={styles.field}>
-                    <Text style={styles.label}>Email:</Text>
-                    <Text style={styles.value}>{item.email}</Text>
-                </Text>
-            </View>)
+            <TouchableOpacity onPress={() => {
+                navigation.navigate("BOOK", {
+                bookId: item.id
+            }) }}>
+                <View style={styles.container}>
+                    <Text style={styles.field}>
+                        <Text style={styles.value}>{item.bookName}</Text>
+                    </Text>
+                </View>
+            </TouchableOpacity>)
     }
 
     return (
         <>
-            <Header>BOOKS IN LIBRARY</Header>
+            <Text onPress={() => navigation.navigate("ADD BOOK")} style={styles.addBookCta}>
+                ADD BOOK
+            </Text>
             {
-                <FlatList
+                (books.length === 0) ? <Loader /> :
+                    <FlatList
                     ItemSeparatorComponent={<View style={styles.separator} />}
                     data={books}
                     renderItem={viewHolder}
@@ -73,8 +60,9 @@ export default function Books() {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        flexDirection: "row",
         height: "auto",
-        minHeight: 100,
         borderRadius: 5,
         padding: 10,
         borderColor: "grey",
@@ -93,5 +81,12 @@ const styles = StyleSheet.create({
     },
     marginTop10: {
         marginTop: 10
+    },
+    addBookCta: {
+        alignSelf: "flex-end",
+        marginEnd: 30,
+        marginTop: 20,
+        fontWeight: "bold",
+        color: "#800080"
     }
 });

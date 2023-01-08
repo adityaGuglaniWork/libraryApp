@@ -1,23 +1,40 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, View } from 'react-native'
 
 import AddBookForm from '@app/components/AddBookForm';
 import Books from '@app/components/Books';
 import Splash from '@app/components/Splash';
+import Book from '@app/components/Book';
+import CustomBackButton from '@app/components/CustomBackButton'
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigator = () => {
-    return (
-      <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Splash" component={Splash}/>
-                <Stack.Screen name="Books" component={Books} />
-                {/* <Stack.Screen name="Add Form" component={AddBookForm} /> */}
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Splash" screenOptions={headerOptions} >
+          <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+          <Stack.Screen name="BOOKS" component={Books} options={{title: 'BOOKS IN LIBRARY'}} />
+          <Stack.Screen name="ADD BOOK" component={AddBookForm} />
+          <Stack.Screen name="BOOK" component={Book} options={{title: 'DETAIL'}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
-  };
+};
   
-  export default RootNavigator;
+const headerOptions = {
+  headerShown: true,
+  headerStyle: {
+    backgroundColor: "#5db3ff"
+  },
+  headerTintColor: '#800080',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+  headerLeft: () => (<CustomBackButton />)
+};
+  
+export default RootNavigator;

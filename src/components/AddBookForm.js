@@ -6,7 +6,6 @@ import { REGEX_VALID_EMAIL, REGEX_VALUE_URL, REGEX_DIGIT_ONLY } from '@app/const
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint'
 import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
-import Header from '@app/components/Header';
 
 export default function AddBookForm() {
     const [bookName, setBookName] = useState();
@@ -100,7 +99,6 @@ export default function AddBookForm() {
 
     return (
         <View style={styles.container}>
-            <Header>LIBRARY FORM</Header>
             <ScrollView style={styles.fieldsContainer}>
                 <Text style={styles.inputLabel}>Book Name<RedText>*</RedText></Text>
                 <TextInput value={bookName} onChange={(e) => setBookName(e.nativeEvent.text)} placeholder="Book Name" style={styles.bookFormInput} />

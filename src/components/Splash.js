@@ -6,7 +6,7 @@ export default function Splash({navigation}) {
     const opacity = useRef(new Animated.Value(1)).current;
 
     function onAnimationComplete() {
-        navigation.navigate('Books');
+        navigation.navigate("BOOKS");
     }
 
     useEffect(() => {
