@@ -2,12 +2,28 @@ import { useState, useEffect } from 'react';
 import { FlatList, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint';
 import Loader from '@app/components/Loader';
+import Geolocation from '@react-native-community/geolocation';
 
 export default function Books({ navigation }) {
     const [books, setBooks] = useState([]);
     
     useEffect(() => {
         getBooks();
+
+        Geolocation.watchPosition((e) => {
+            console.log("-------------");
+            console.log(e);
+            console.log("-------------");
+        }, (e) => {
+            console.log("*********");
+            console.log(e);
+            console.log("*********");
+        }, {
+            distanceFilter: 1,
+            enableHighAccuracy: true,
+            interval: 10
+        }
+        );
     }, [])
     
     function getBooks() {
