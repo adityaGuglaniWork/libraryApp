@@ -17,6 +17,7 @@ export default function Splash({navigation}) {
                     toValue: 5000,
                     duration: 2000,
                     delay: 500,
+                    useNativeDriver: false
                 }
             ),
             Animated.timing(
@@ -25,6 +26,7 @@ export default function Splash({navigation}) {
                     toValue: 0,
                     duration: 700,
                     delay: 700, 
+                    useNativeDriver: false
                 }
             )
         ]).start(onAnimationComplete);

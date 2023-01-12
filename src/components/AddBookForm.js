@@ -128,8 +128,8 @@ export default function AddBookForm() {
                     </View>
                 </View>
                 <View style={styles.displayBookCheckBlock}>
-                    <CheckBox onChange={() => setDisplay(!display)} value={display} />
-                    <Text>   Do you want to display this Book in Library?</Text>
+                    <CheckBox style={ styles.grey } onChange={() => setDisplay(!display)} value={display} />
+                    <Text style={styles.grey}>Do you want to display this Book in Library?</Text>
                 </View>
             </ScrollView>
             <View style={styles.footer}>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
+        backgroundColor: "lightgrey"
     },
     flexRow: {
         flexDirection: "row"
@@ -165,11 +166,11 @@ const styles = StyleSheet.create({
     bookFormInput: {
         paddingStart: 8,
         marginVertical: 5,
-        borderRadius: 3,
+        borderRadius: 12,
         borderColor: "black",
         borderWidth: 1,
         borderColor: "grey",
-        height: 30,
+        backgroundColor: "grey"
     },
     submitBtn: {
         flex: 1,
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
     inputLabel: {
         marginVertical: 5,
         fontWeight: "bold",
+        color: "grey",
     },
     footer: {
         height: 70,
@@ -194,5 +196,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 10
+    },
+    grey: {
+        color: "grey",
     }
 });

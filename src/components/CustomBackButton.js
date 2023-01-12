@@ -1,8 +1,9 @@
-import { Button, BackHandler, Platform } from 'react-native';
+import { BackHandler, Platform, Text, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import RNExitApp from 'react-native-exit-app';
 import Toast from 'react-native-root-toast';
+import { TouchableOpacity } from 'react-native';
 
 const DOUBLE_PRESS_DELAY = 300;
 
@@ -38,8 +39,16 @@ export default function CustomBackPress() {
         }
     }
 
-    return (<Button onPress={handleBackPress}
-        title="Back"
-        color="#800080"
-    />);
+    return (
+        <TouchableOpacity onPress={ handleBackPress }>
+            <Text style={ styles.back }>BACK</Text>
+        </TouchableOpacity>
+    );
 }
+
+const styles = StyleSheet.create({
+    back: {
+        color: "#800080",
+        fontWeight: "bold"
+    }
+});
