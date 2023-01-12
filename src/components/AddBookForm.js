@@ -118,7 +118,7 @@ export default function AddBookForm() {
                 <View style={styles.flexRow}>
                     <View style={styles.splitContainer}>
                         <Text style={styles.inputLabel}>Email<RedText>*</RedText></Text>
-                        <TextInput value={email} onChange={(e) => setEmail(e.nativeEvent.text)} placeholder="Email" style={[{ marginRight: 10 }, styles.bookFormInput]} />
+                        <TextInput value={email} onChange={(e) => setEmail(e.nativeEvent.text)} placeholder="Email" style={styles.bookFormInput} />
                         <RedText>{errorFields.email}</RedText>
                     </View>
                     <View style={styles.splitContainer}>

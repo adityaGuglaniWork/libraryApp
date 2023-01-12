@@ -35,12 +35,18 @@ export default function Book({ navigation, route }) {
       );
 
     function trackUserLocation() {
+        // Setup initial location of user
+        Geolocation.getCurrentPosition((geolocation) => {
+            setUserLocation(geolocation);
+        });
+
+        // Track user location
         watchId = Geolocation.watchPosition((geoLocation) => {
             setUserLocation(geoLocation);
         }, (e) => {
             console.warn(e);
         }, {
-            distanceFilter: 1,
+            distanceFilter: 0.01,
             enableHighAccuracy: true,
             interval: 1
         });
@@ -97,8 +103,8 @@ const LiveTracking = ({ hasLocation, userLocation, bookLocation }) => {
         }
     }());
     return (
-        <View style={{ alignItems: "center" }}>
-            <Text style={{ backgroundColor: "grey", padding: 10, borderRadius: 10 }}>{trackingInfo}</Text>
+        <View style={styles.trackingContainer}>
+            <Text style={styles.trackingInfo}>{trackingInfo}</Text>
         </View>
     );
 }
@@ -138,5 +144,14 @@ const styles = StyleSheet.create({
     },
     value: {
         color: "grey"
+    },
+    trackingContainer: {
+        alignItems: "center"
+    },
+    trackingInfo: {
+        backgroundColor: "red",
+        color: "white",
+        padding: 10,
+        borderRadius: 10
     }
 });
