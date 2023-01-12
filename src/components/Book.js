@@ -1,15 +1,17 @@
 import { Text, View, StyleSheet, PermissionsAndroid } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint';
 import Loader from '@app/components/Loader';
 import Geolocation from '@react-native-community/geolocation';
 import { getDistanceBetweenLocationsInMts } from '@app/helpers/books/LocationUtils';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Book({ navigation, route }) {
     const [book, setBook] = useState();
     const { bookId } = route.params;
     const [hasLocation, setHasLocation] = useState();
     const [userLocation, setUserLocation] = useState();
+    let watchId = undefined;
     
     useEffect(() => {
         getBook();
@@ -21,9 +23,19 @@ export default function Book({ navigation, route }) {
         });
     }, []);
 
+    useFocusEffect(
+        useCallback(() => {    
+            return () => {
+                if (watchId === undefined) {
+                    Geolocation.clearWatch(watchId);
+                    watchId = undefined;
+              }
+          };
+        }, [])
+      );
+
     function trackUserLocation() {
-        Geolocation.watchPosition((geoLocation) => {
-            console.log(geoLocation);
+        watchId = Geolocation.watchPosition((geoLocation) => {
             setUserLocation(geoLocation);
         }, (e) => {
             console.warn(e);
@@ -70,14 +82,23 @@ export default function Book({ navigation, route }) {
                     <InfoRow field="Email" value={book.email} />
                 </> : <Loader />}
         </View>
-        {(hasLocation && book && userLocation) ? <LiveTracking userLocation={ userLocation } bookLocation={ book? book.location : null }  /> : null}
+        <LiveTracking hasLocation={hasLocation} userLocation={ userLocation } bookLocation={ book? book.location : null }  />
     </>);
 }
 
-const LiveTracking = ({ userLocation, bookLocation }) => {
+const LiveTracking = ({ hasLocation, userLocation, bookLocation }) => {
+    const trackingInfo = (function () {
+        switch (true) {
+            case !hasLocation: return "Location can't be accessed";
+            case !userLocation: return "Tracking location....";
+            case !bookLocation: return "Book's Location cant be accessed";
+            default: return "Only "+ getDistanceBetweenLocationsInMts(userLocation, bookLocation)+ " away";
+
+        }
+    }());
     return (
         <View style={{ alignItems: "center" }}>
-            <Text style={{ backgroundColor: "grey", padding: 10, borderRadius: 10 }}>Only {getDistanceBetweenLocationsInMts(userLocation, bookLocation)} away</Text>
+            <Text style={{ backgroundColor: "grey", padding: 10, borderRadius: 10 }}>{trackingInfo}</Text>
         </View>
     );
 }
