@@ -1,12 +1,12 @@
-import { Text, View, TextInput, TouchableOpacity, Platform, ScrollView } from 'react-native';
+import { Text, View, TouchableHighlight, ScrollView } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
-import { SelectList } from 'react-native-dropdown-select-list'
 import { REGEX_VALID_EMAIL, REGEX_VALUE_URL, REGEX_DIGIT_ONLY } from '@app/constants/Regex'
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint'
 import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
 import styles from '@app/assets/styles/AddBookForm.style'
+import { CustomNumberInput, CustomSelectInput, CustomTextInput } from './CustomInputs';
 
 export default function AddBookForm() {
     const [bookName, setBookName] = useState();
@@ -93,53 +93,39 @@ export default function AddBookForm() {
         return Object.keys(errorFields).length == 0;
     }
 
-    function validateAndSetPrice(e) {
-        let price = e.nativeEvent.text;
+    function validateAndSetPrice(price) {
         setPrice(price.replace(REGEX_DIGIT_ONLY, ''));
     }
 
     return (
         <View style={styles.container}>
             <ScrollView style={styles.fieldsContainer}>
-                <Text style={styles.inputLabel}>Book Name<RedText>*</RedText></Text>
-                <TextInput value={bookName} onChange={(e) => setBookName(e.nativeEvent.text)} placeholder="Book Name" style={styles.bookFormInput} />
-                <RedText>{errorFields.bookName}</RedText>
 
-                <Text style={styles.inputLabel}>Author Name<RedText>*</RedText></Text>
-                <TextInput value={authorName} onChange={(e) => setAuthorName(e.nativeEvent.text)} placeholder="Author Name" style={styles.bookFormInput} />
-                <RedText>{errorFields.authorName}</RedText>
-
-                <Text style={styles.inputLabel}>Price<RedText>*</RedText></Text>
-                <TextInput value={price} onChange={(e) => validateAndSetPrice(e)} keyboardType={Platform.OS ? "number-pad" : "numeric"} placeholder="Price" style={styles.bookFormInput} />
-                <RedText>{errorFields.price}</RedText>
-
-                <Text style={styles.inputLabel}>Publishers</Text>
-                <SelectList setSelected={(val) => setPublisher(val)} data={getPublishers()} />
+                <CustomTextInput label="Book Name" isRequired={true} value={bookName} error={errorFields.bookName} onChange={(value) => { setBookName(value) }} />
+                <CustomTextInput label="Author Name" isRequired={true} value={ authorName } error={errorFields.authorName} onChange={(value) => { setAuthorName(value) }} />
+                <CustomNumberInput label="Price" isRequired={true} value={price} error={errorFields.price} onChange={(price) => { validateAndSetPrice(price) }} />
+                <CustomSelectInput label="Publishers" setSelected={(val) => setPublisher(val)} data={getPublishers()} />
 
                 <View style={styles.flexRow}>
                     <View style={styles.splitContainer}>
-                        <Text style={styles.inputLabel}>Email<RedText>*</RedText></Text>
-                        <TextInput value={email} onChange={(e) => setEmail(e.nativeEvent.text)} placeholder="Email" style={styles.bookFormInput} />
-                        <RedText>{errorFields.email}</RedText>
+                        <CustomTextInput isRequired={true} label="Email" value={ email } error={errorFields.email} onChange={(value) => { setEmail(value) }} />
                     </View>
                     <View style={styles.splitContainer}>
-                        <Text style={styles.inputLabel}>Website<RedText>*</RedText></Text>
-                        <TextInput value={website} onChange={(e) => setWebsite(e.nativeEvent.text)} placeholder="Website" style={styles.bookFormInput} />
-                        <RedText>{errorFields.website}</RedText>
+                        <CustomTextInput isRequired={true} label="Website" value={ website } error={errorFields.website} onChange={(value) => { setWebsite(value) }} />
                     </View>
                 </View>
                 <View style={styles.displayBookCheckBlock}>
                     <CheckBox style={ styles.grey } onChange={() => setDisplay(!display)} value={display} />
                     <Text style={styles.grey}>Do you want to display this Book in Library?</Text>
-                </View>
+                </View> 
             </ScrollView>
             <View style={styles.footer}>
-                <TouchableOpacity onPress={onSubmit} style={styles.submitBtn}><Text style={styles.submitText}>SUBMIT</Text></TouchableOpacity>
+                <TouchableHighlight onPress={onSubmit} style={styles.submitBtn}><Text style={styles.submitText}>SUBMIT</Text></TouchableHighlight>
             </View>
         </View>
     );
 }
 
-const RedText = ({ children }) => {
+export const RedText = ({ children }) => {
     return <Text style={styles.red}>{children}</Text>
 }

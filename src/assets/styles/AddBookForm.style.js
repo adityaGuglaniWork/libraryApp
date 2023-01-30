@@ -4,7 +4,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: "lightgrey"
     },
     flexRow: {
         flexDirection: "row"
@@ -15,7 +14,8 @@ export default StyleSheet.create({
     },
     splitContainer: {
         flexDirection: "column",
-        flex: 1
+        flex: 1,
+        padding: 2
     },
     red: {
         color: "red"
@@ -27,7 +27,7 @@ export default StyleSheet.create({
         borderColor: "black",
         borderWidth: 1,
         borderColor: "grey",
-        backgroundColor: "grey"
+        color: "grey"
     },
     submitBtn: {
         flex: 1,
