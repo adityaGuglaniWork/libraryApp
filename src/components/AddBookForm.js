@@ -7,6 +7,7 @@ import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
 import styles from '@app/assets/styles/AddBookForm.style'
 import { CustomNumberInput, CustomSelectInput, CustomTextInput } from './CustomInputs';
+import { validateEmail, validateUrl } from '@app/helpers/books/Validator';
 
 export default function AddBookForm() {
     const [bookName, setBookName] = useState();
@@ -64,27 +65,21 @@ export default function AddBookForm() {
     function validateFields() {
         let errorFields = {};
 
-        if (!bookName) {
-            errorFields["bookName"] = "Please enter book name";
-        }
+        if (!bookName) errorFields["bookName"] = "Please enter book name";
 
-        if (!authorName) {
-            errorFields["authorName"] = "Please enter author name";
-        }
+        if (!authorName) errorFields["authorName"] = "Please enter author name";
 
-        if (!price) {
-            errorFields["price"] = "Please enter price";
-        }
+        if (!price) errorFields["price"] = "Please enter price";
 
         if (!email) {
             errorFields["email"] = "Please enter email";
-        } else if (REGEX_VALID_EMAIL.test(email) === false) {
+        } else if (!validateEmail(email)) {
             errorFields["email"] = "Please enter a valid email";
         }
 
         if (!website) {
             errorFields["website"] = "Please enter website";
-        } else if (REGEX_VALUE_URL.test(website) === false) {
+        } else if (!validateUrl(website)) {
             errorFields["website"] = "Please enter a valid website";
         }
 
