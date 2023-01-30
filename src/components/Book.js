@@ -1,10 +1,11 @@
-import { Text, View, StyleSheet, PermissionsAndroid } from 'react-native';
+import { Text, View, PermissionsAndroid } from 'react-native';
 import { useState, useEffect, useCallback } from 'react';
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint';
 import Loader from '@app/components/Loader';
 import Geolocation from '@react-native-community/geolocation';
 import { getDistanceBetweenLocationsInMts } from '@app/helpers/books/LocationUtils';
 import { useFocusEffect } from '@react-navigation/native';
+import styles from '@app/assets/styles/Book.style'
 
 export default function Book({ navigation, route }) {
     const [book, setBook] = useState();
@@ -123,35 +124,3 @@ async function checkAndRequestLocationPermission(updatePermissionStatus) {
         console.warn(err);
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        paddingLeft: 10,
-        backgroundColor: "lightgrey",
-        margin: 20,
-        borderWidth: 1,
-        borderColor: "grey",
-        borderRadius: 10
-    },
-    field: {
-        padding: 10,
-        fontSize: 15,
-        flexDirection: "row"
-    },
-    label: {
-        fontWeight: "bold",
-        color: "grey"
-    },
-    value: {
-        color: "grey"
-    },
-    trackingContainer: {
-        alignItems: "center"
-    },
-    trackingInfo: {
-        backgroundColor: "red",
-        color: "white",
-        padding: 10,
-        borderRadius: 10
-    }
-});

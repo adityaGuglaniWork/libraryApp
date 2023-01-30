@@ -1,5 +1,6 @@
-import { View, StyleSheet, Animated } from "react-native";
+import { View, Animated } from "react-native";
 import React, { useRef, useEffect } from 'react';
+import styles from '@app/assets/styles/Splash.style';
 
 export default function Splash({navigation}) {
     const scaleXY = useRef(new Animated.Value(100)).current;
@@ -41,12 +42,3 @@ export default function Splash({navigation}) {
         </View>
     </>
 };
-
-const styles = StyleSheet.create({
-    container: {
-        height: "100%",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center"
-    }
-});
