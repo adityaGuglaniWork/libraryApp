@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, ScrollView } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Platform, ScrollView } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
 import { SelectList } from 'react-native-dropdown-select-list'
@@ -6,6 +6,7 @@ import { REGEX_VALID_EMAIL, REGEX_VALUE_URL, REGEX_DIGIT_ONLY } from '@app/const
 import { ACCESS_BOOK } from '@app/constants/ApiEndpoint'
 import getPublishers from '@app/helpers/books/getPublishers'
 import { API_CODE_CREATED } from '@app/constants/ResposeCodes'
+import styles from '@app/assets/styles/AddBookForm.style'
 
 export default function AddBookForm() {
     const [bookName, setBookName] = useState();
@@ -142,62 +143,3 @@ export default function AddBookForm() {
 const RedText = ({ children }) => {
     return <Text style={styles.red}>{children}</Text>
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: "column",
-        backgroundColor: "lightgrey"
-    },
-    flexRow: {
-        flexDirection: "row"
-    },
-    fieldsContainer: {
-        flex: 1,
-        margin: 10
-    },
-    splitContainer: {
-        flexDirection: "column",
-        flex: 1
-    },
-    red: {
-        color: "red"
-    },
-    bookFormInput: {
-        paddingStart: 8,
-        marginVertical: 5,
-        borderRadius: 12,
-        borderColor: "black",
-        borderWidth: 1,
-        borderColor: "grey",
-        backgroundColor: "grey"
-    },
-    submitBtn: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'lightgreen',
-    },
-    submitText: {
-        fontWeight: "bold",
-        fontSize: 20
-    },
-    inputLabel: {
-        marginVertical: 5,
-        fontWeight: "bold",
-        color: "grey",
-    },
-    footer: {
-        height: 70,
-        backgroundColor: "black"
-    },
-    displayBookCheckBlock: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 10
-    },
-    grey: {
-        color: "grey",
-    }
-});
